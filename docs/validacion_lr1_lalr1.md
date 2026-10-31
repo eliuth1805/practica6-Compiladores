@@ -17,19 +17,32 @@ En este anexo se desarrolla la auditoría de una colección de estados LR(1) y s
 De acuerdo con el penúltimo dígito de la cuenta UNAM, que es impar, se utiliza la siguiente gramática:
 
 $$
-\begin{array}{l}
-S' &\rightarrow S\\
-S &\rightarrow L=R\\
-S &\rightarrow R\\
-L &\rightarrow \&R\\
-L &\rightarrow id\\
-R &\rightarrow L
-\end{array}
+S'\rightarrow S
+$$
+
+$$
+S\rightarrow L=R
+$$
+
+$$
+S\rightarrow R
+$$
+
+$$
+L\rightarrow \&R
+$$
+
+$$
+L\rightarrow id
+$$
+
+$$
+R\rightarrow L
 $$
 
 ## 2. Fase 1: Auditoría manual del caso base
 
-### 2.1. Construcción del estado inicial \(I_0\)
+### 2.1. Construcción del estado inicial I0
 
 Partimos del elemento inicial:
 
@@ -37,7 +50,7 @@ $$
 [S'\rightarrow \cdot S,\$]
 $$
 
-Aplicando CLOSURE se incorporan las producciones de \(S\). Para las producciones de \(L\), los lookaheads se obtienen mediante \(FIRST(\beta a)\).
+Aplicando CLOSURE se incorporan las producciones de S. Para las producciones de L, los lookaheads se obtienen mediante FIRST(βa).
 
 En particular:
 
@@ -45,7 +58,7 @@ $$
 FIRST(=R\$)=\{=\}
 $$
 
-y para la producción \(S\rightarrow R\):
+y para la producción S → R:
 
 $$
 FIRST(\varepsilon\$)=\{\$\}
@@ -54,21 +67,10 @@ $$
 Al reunir los elementos correspondientes, el estado inicial queda:
 
 $$
-\boxed{
-\begin{array}{l}
-I_0=\{
-[S'\rightarrow \cdot S,\$],\\
-[S\rightarrow \cdot L=R,\$],\\
-[S\rightarrow \cdot R,\$],\\
-[R\rightarrow \cdot L,\$],\\
-[L\rightarrow \cdot \&R,\{=,\$\}],\\
-[L\rightarrow \cdot id,\{=,\$\}]
-\}
-\end{array}
-}
+I_0=\{[S'\rightarrow\cdot S,\$],\ [S\rightarrow\cdot L=R,\$],\ [S\rightarrow\cdot R,\$],\ [R\rightarrow\cdot L,\$],\ [L\rightarrow\cdot\&R,\{=,\$\}],\ [L\rightarrow\cdot id,\{=,\$\}]\}
 $$
 
-### 2.2. Construcción del estado \(I_2\)
+### 2.2. Construcción del estado I2
 
 Aplicamos la transición:
 
@@ -76,21 +78,13 @@ $$
 I_2=GOTO(I_0,L)
 $$
 
-Los elementos que tienen el punto antes de \(L\) avanzan una posición:
+Los elementos que tienen el punto antes de L avanzan una posición:
 
 $$
-\boxed{
-I_2=
-\left\{
-\begin{array}{l}
-[S\rightarrow L\cdot=R,\$],\\
-[R\rightarrow L\cdot,\$]
-\end{array}
-\right.
-}
+I_2=\{[S\rightarrow L\cdot=R,\$],\ [R\rightarrow L\cdot,\$]\}
 $$
 
-El primer elemento permite desplazar el terminal `=`, mientras que el segundo permite reducir mediante la producción \(R\rightarrow L\) únicamente cuando el lookahead es `$`.
+El primer elemento permite desplazar el terminal `=`, mientras que el segundo permite reducir mediante la producción R → L únicamente cuando el lookahead es `$`.
 
 ### 2.3. Transición del operador unario
 
@@ -103,39 +97,29 @@ $$
 El punto avanza en los elementos correspondientes:
 
 $$
-[L\rightarrow \&\cdot R,\{=,\$\}]
+[L\rightarrow\&\cdot R,\{=,\$\}]
 $$
 
 Aplicando CLOSURE, se incorpora:
 
 $$
-[R\rightarrow \cdot L,\{=,\$\}]
+[R\rightarrow\cdot L,\{=,\$\}]
 $$
 
-Después se expanden las producciones de \(L\):
+Después se expanden las producciones de L:
 
 $$
-\boxed{
-I_4=
-\left\{
-\begin{array}{l}
-[L\rightarrow \&\cdot R,\{=,\$\}],\\
-[R\rightarrow \cdot L,\{=,\$\}],\\
-[L\rightarrow \cdot \&R,\{=,\$\}],\\
-[L\rightarrow \cdot id,\{=,\$\}]
-\end{array}
-\right.
-}
+I_4=\{[L\rightarrow\&\cdot R,\{=,\$\}],\ [R\rightarrow\cdot L,\{=,\$\}],\ [L\rightarrow\cdot\&R,\{=,\$\}],\ [L\rightarrow\cdot id,\{=,\$\}]\}
 $$
 
 ### 2.4. Identificación de las tres inconsistencias
 
 **Error 1. Producción incorrecta en el estado inicial.**
 
-El caso base utiliza la producción \(L\rightarrow *R\), aunque para esta variante debe utilizarse:
+El caso base utiliza la producción L → *R, aunque para esta variante debe utilizarse:
 
 $$
-L\rightarrow \&R
+L\rightarrow\&R
 $$
 
 Esto modifica la gramática que se está analizando.
@@ -152,7 +136,7 @@ $$
 
 Por lo tanto, deben fusionarse y combinar sus respectivos lookaheads. La diferencia entre los lookaheads no justifica mantenerlos separados.
 
-**Error 3. Reducción forzada en el estado \(I_2\).**
+**Error 3. Reducción forzada en el estado I2.**
 
 En el caso base se inserta una reducción mediante la producción 6 en la entrada correspondiente al terminal `=`.
 
@@ -199,16 +183,16 @@ $$
 Durante su cerradura aparece el elemento:
 
 $$
-[R\rightarrow \cdot L,\{=,\$\}]
+[R\rightarrow\cdot L,\{=,\$\}]
 $$
 
-Para expandir las producciones de \(L\), aplicamos la regla:
+Para expandir las producciones de L, aplicamos la regla:
 
 $$
 b\in FIRST(\beta a)
 $$
 
-Como después de \(L\) no existe ningún símbolo adicional:
+Como después de L no existe ningún símbolo adicional:
 
 $$
 \beta=\varepsilon
@@ -223,11 +207,11 @@ $$
 Los elementos correctos son:
 
 $$
-[L\rightarrow \cdot \&R,\{=,\$\}]
+[L\rightarrow\cdot\&R,\{=,\$\}]
 $$
 
 $$
-[L\rightarrow \cdot id,\{=,\$\}]
+[L\rightarrow\cdot id,\{=,\$\}]
 $$
 
 **Error introducido deliberadamente:**
@@ -235,14 +219,14 @@ $$
 Se asigna el lookahead `&` al elemento:
 
 $$
-\boxed{[L\rightarrow \cdot id,\&]}
+[L\rightarrow\cdot id,\&]
 $$
 
-Esta asignación es incorrecta porque `&` no pertenece al resultado de \(FIRST(\beta a)\).
+Esta asignación es incorrecta porque `&` no pertenece al resultado de FIRST(βa).
 
 Si posteriormente se realiza la transición con `id`, el elemento completo tendría un lookahead incorrecto y podría introducir una acción de reducción en una entrada que no corresponde.
 
-**Corrección:** recalcular la cerradura mediante \(FIRST(\beta a)\) y conservar únicamente los lookaheads `=` y `$`.
+**Corrección:** recalcular la cerradura mediante FIRST(βa) y conservar únicamente los lookaheads `=` y `$`.
 
 ### 3.2. Fallo tipo B: Fusión inválida de kernels
 
@@ -253,13 +237,13 @@ I_5=\{[L\rightarrow id\cdot,\{=,\$\}]\}
 $$
 
 $$
-I_7=\{[L\rightarrow \&R\cdot,\{=,\$\}]\}
+I_7=\{[L\rightarrow\&R\cdot,\{=,\$\}]\}
 $$
 
 Se introduce deliberadamente la fusión incorrecta:
 
 $$
-J_{\text{falso}}=I_5\cup I_7
+J_{falso}=I_5\cup I_7
 $$
 
 Para comprobar si la fusión es válida, eliminamos los lookaheads.
@@ -271,7 +255,7 @@ CORE(I_5)=\{L\rightarrow id\cdot\}
 $$
 
 $$
-CORE(I_7)=\{L\rightarrow \&R\cdot\}
+CORE(I_7)=\{L\rightarrow\&R\cdot\}
 $$
 
 Como:
@@ -291,13 +275,13 @@ $$
 $$
 
 $$
-[L\rightarrow \&R\cdot,\{=,\$\}]
+[L\rightarrow\&R\cdot,\{=,\$\}]
 $$
 
 Para el terminal `=` aparecerían dos reducciones:
 
-- \(L\rightarrow id\)
-- \(L\rightarrow \&R\)
+- L → id
+- L → &R
 
 Lo mismo sucedería para `$`.
 
@@ -315,7 +299,7 @@ Se solicitó identificar los errores presentes en los estados LR(1) y LALR(1), e
 
 **Resultado:** identificó correctamente la asignación incorrecta del lookahead y la fusión inválida de los estados.
 
-La respuesta explicó que los lookaheads debían obtenerse mediante \(FIRST(\beta a)\) y que los kernels tenían que ser idénticos para permitir una fusión.
+La respuesta explicó que los lookaheads debían obtenerse mediante FIRST(βa) y que los kernels tenían que ser idénticos para permitir una fusión.
 
 ### 4.2. P2: Prompt estructurado
 
@@ -331,7 +315,7 @@ Se solicitó que el modelo realizara preguntas progresivas sin revelar directame
 
 Se trabajaron cinco etapas:
 
-1. Identificación de \(\beta\) y \(a\) en el cálculo de \(FIRST(\beta a)\).
+1. Identificación de β y a en el cálculo de FIRST(βa).
 2. Identificación del origen de los lookaheads durante CLOSURE.
 3. Diferenciación entre los elementos del kernel y los incorporados mediante CLOSURE.
 4. Comprobación de la igualdad de kernels para permitir una fusión LALR(1).
