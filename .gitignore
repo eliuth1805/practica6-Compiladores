@@ -1,0 +1,6 @@
+# Ejecutables generados
+parser
+test_parser
+
+# Archivos objeto
+*.o
