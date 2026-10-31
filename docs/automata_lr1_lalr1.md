@@ -15,15 +15,15 @@ Para construir el analizador sintáctico se utiliza la siguiente gramática aume
 
 Los símbolos terminales son:
 
-\[
+$$
 VT=\{*,id,=,\$\}
-\]
+$$
 
 Los símbolos no terminales son:
 
-\[
+$$
 VN=\{S,L,R\}
-\]
+$$
 
 El símbolo `$` representa el fin de la entrada.
 
@@ -33,53 +33,53 @@ A partir de las producciones de la gramática se obtienen los siguientes conjunt
 
 Como:
 
-\[
+$$
 L\rightarrow *R\mid id
-\]
+$$
 
 se tiene:
 
-\[
+$$
 FIRST(L)=\{*,id\}
-\]
+$$
 
 Debido a que:
 
-\[
+$$
 R\rightarrow L
-\]
+$$
 
 se obtiene:
 
-\[
+$$
 FIRST(R)=\{*,id\}
-\]
+$$
 
 Finalmente, como:
 
-\[
+$$
 S\rightarrow L=R\mid R
-\]
+$$
 
 resulta:
 
-\[
+$$
 FIRST(S)=\{*,id\}
-\]
+$$
 
 Por lo tanto:
 
-\[
+$$
 \boxed{FIRST(S)=FIRST(L)=FIRST(R)=\{*,id\}}
-\]
+$$
 
 ## 3. Construcción de los estados canónicos LR(1)
 
 Se utiliza el elemento inicial:
 
-\[
+$$
 [S'\rightarrow \cdot S,\$]
-\]
+$$
 
 Para construir los estados se aplican las operaciones CLOSURE y GOTO, considerando los símbolos de anticipación (*lookaheads*) correspondientes.
 
@@ -87,7 +87,7 @@ Para construir los estados se aplican las operaciones CLOSURE y GOTO, consideran
 
 Aplicando CLOSURE al elemento inicial se obtiene:
 
-\[
+$$
 \boxed{
 \begin{aligned}
 I_0=\{&
@@ -100,7 +100,7 @@ I_0=\{&
 \}
 \end{aligned}
 }
-\]
+$$
 
 Los anticipadores de las producciones de L incluyen `=` porque aparece después de L en la producción S → L = R, y `$` porque R → L aparece al final de una producción.
 
@@ -108,13 +108,13 @@ Los anticipadores de las producciones de L incluyen `=` porque aparece después 
 
 Se obtiene mediante:
 
-\[
+$$
 GOTO(I_0,S)=I_1
-\]
+$$
 
-\[
+$$
 \boxed{I_1=\{[S'\rightarrow S\cdot,\$]\}}
-\]
+$$
 
 Este es el estado de aceptación.
 
@@ -122,11 +122,11 @@ Este es el estado de aceptación.
 
 Se obtiene mediante:
 
-\[
+$$
 GOTO(I_0,L)=I_2
-\]
+$$
 
-\[
+$$
 \boxed{
 I_2=
 \{
@@ -134,7 +134,7 @@ I_2=
 [R\rightarrow L\cdot,\$]
 \}
 }
-\]
+$$
 
 En este estado existe un desplazamiento con `=` y una reducción con `$`.
 
@@ -142,25 +142,25 @@ En este estado existe un desplazamiento con `=` y una reducción con `$`.
 
 Se obtiene mediante:
 
-\[
+$$
 GOTO(I_0,R)=I_3
-\]
+$$
 
-\[
+$$
 \boxed{I_3=\{[S\rightarrow R\cdot,\$]\}}
-\]
+$$
 
 ### Estado I4
 
 Se obtiene mediante:
 
-\[
+$$
 GOTO(I_0,*)=I_4
-\]
+$$
 
 Al aplicar CLOSURE se obtiene:
 
-\[
+$$
 \boxed{
 \begin{aligned}
 I_4=\{&
@@ -171,33 +171,33 @@ I_4=\{&
 \}
 \end{aligned}
 }
-\]
+$$
 
 ### Estado I5
 
 Se obtiene mediante:
 
-\[
+$$
 GOTO(I_0,id)=I_5
-\]
+$$
 
-\[
+$$
 \boxed{
 I_5=\{[L\rightarrow id\cdot,\{=,\$\}]\}
 }
-\]
+$$
 
 ### Estado I6
 
 Se obtiene mediante:
 
-\[
+$$
 GOTO(I_2,=)=I_6
-\]
+$$
 
 Aplicando CLOSURE:
 
-\[
+$$
 \boxed{
 \begin{aligned}
 I_6=\{&
@@ -208,75 +208,75 @@ I_6=\{&
 \}
 \end{aligned}
 }
-\]
+$$
 
 ### Estado I7
 
 Se obtiene mediante:
 
-\[
+$$
 GOTO(I_4,R)=I_7
-\]
+$$
 
-\[
+$$
 \boxed{
 I_7=\{[L\rightarrow *R\cdot,\{=,\$\}]\}
 }
-\]
+$$
 
 ### Estado I8
 
 Se obtiene mediante:
 
-\[
+$$
 GOTO(I_4,L)=I_8
-\]
+$$
 
-\[
+$$
 \boxed{
 I_8=\{[R\rightarrow L\cdot,\{=,\$\}]\}
 }
-\]
+$$
 
 ### Estado I9
 
 Se obtiene mediante:
 
-\[
+$$
 GOTO(I_6,R)=I_9
-\]
+$$
 
-\[
+$$
 \boxed{
 I_9=\{[S\rightarrow L=R\cdot,\$]\}
 }
-\]
+$$
 
 ### Estado I10
 
 Se obtiene mediante:
 
-\[
+$$
 GOTO(I_6,L)=I_{10}
-\]
+$$
 
-\[
+$$
 \boxed{
 I_{10}=\{[R\rightarrow L\cdot,\$]\}
 }
-\]
+$$
 
 ### Estado I11
 
 Se obtiene mediante:
 
-\[
+$$
 GOTO(I_6,*)=I_{11}
-\]
+$$
 
 Aplicando CLOSURE:
 
-\[
+$$
 \boxed{
 \begin{aligned}
 I_{11}=\{&
@@ -287,41 +287,41 @@ I_{11}=\{&
 \}
 \end{aligned}
 }
-\]
+$$
 
 ### Estado I12
 
 Se obtiene mediante:
 
-\[
+$$
 GOTO(I_6,id)=I_{12}
-\]
+$$
 
-\[
+$$
 \boxed{
 I_{12}=\{[L\rightarrow id\cdot,\$]\}
 }
-\]
+$$
 
 ### Estado I13
 
 Se obtiene mediante:
 
-\[
+$$
 GOTO(I_{11},R)=I_{13}
-\]
+$$
 
-\[
+$$
 \boxed{
 I_{13}=\{[L\rightarrow *R\cdot,\$]\}
 }
-\]
+$$
 
 Por lo tanto, la colección canónica LR(1) contiene:
 
-\[
+$$
 \boxed{14\text{ estados}}
-\]
+$$
 
 ## 4. Transiciones del autómata LR(1)
 
@@ -380,9 +380,9 @@ La correspondencia completa es:
 
 De esta manera, el número de estados se reduce de 14 a 10:
 
-\[
+$$
 \boxed{14\longrightarrow 10}
-\]
+$$
 
 ## 6. Estados resultantes LALR(1)
 
@@ -390,7 +390,7 @@ Los estados fusionados principales quedan de la siguiente manera:
 
 ### Estado J4
 
-\[
+$$
 \boxed{
 \begin{aligned}
 J_4=\{&
@@ -401,31 +401,31 @@ J_4=\{&
 \}
 \end{aligned}
 }
-\]
+$$
 
 ### Estado J5
 
-\[
+$$
 \boxed{
 J_5=\{[L\rightarrow id\cdot,\{=,\$\}]\}
 }
-\]
+$$
 
 ### Estado J7
 
-\[
+$$
 \boxed{
 J_7=\{[L\rightarrow *R\cdot,\{=,\$\}]\}
 }
-\]
+$$
 
 ### Estado J8
 
-\[
+$$
 \boxed{
 J_8=\{[R\rightarrow L\cdot,\{=,\$\}]\}
 }
-\]
+$$
 
 Los demás estados conservan los elementos de sus estados LR(1) originales.
 
@@ -488,27 +488,27 @@ En el análisis SLR(1), las reducciones se determinan utilizando los conjuntos F
 
 En este caso, después de reconocer L se presenta el estado que contiene:
 
-\[
+$$
 [S\rightarrow L\cdot=R]
-\]
+$$
 
-\[
+$$
 [R\rightarrow L\cdot]
-\]
+$$
 
 El primer elemento indica que debe realizarse un desplazamiento cuando aparece `=`.
 
 Sin embargo, en SLR(1), como:
 
-\[
+$$
 FOLLOW(R)=\{=,\$\}
-\]
+$$
 
 también se intentaría realizar la reducción:
 
-\[
+$$
 R\rightarrow L
-\]
+$$
 
 cuando aparece `=`.
 
@@ -516,21 +516,21 @@ Esto genera un conflicto desplazamiento-reducción.
 
 En LR(1), el elemento completo conserva su anticipación específica:
 
-\[
+$$
 [R\rightarrow L\cdot,\$]
-\]
+$$
 
 Por lo tanto, la reducción solamente se realiza cuando aparece `$`, mientras que con `=` se realiza el desplazamiento.
 
 Así se evita el conflicto:
 
-\[
+$$
 ACTION[J_2,=]=s_6
-\]
+$$
 
-\[
+$$
 ACTION[J_2,\$]=r_6
-\]
+$$
 
 La información de anticipación permite distinguir correctamente ambas acciones.
 
