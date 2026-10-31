@@ -89,16 +89,16 @@ Aplicando CLOSURE al elemento inicial se obtiene:
 
 $$
 \boxed{
-\begin{aligned}
-I_0=\{&
+\begin{array}{l}
+I_0=\{
 [S'\rightarrow \cdot S,\$],\\
-&[S\rightarrow \cdot L=R,\$],\\
-&[S\rightarrow \cdot R,\$],\\
-&[R\rightarrow \cdot L,\$],\\
-&[L\rightarrow \cdot *R,\{=,\$\}],\\
-&[L\rightarrow \cdot id,\{=,\$\}]
+[S\rightarrow \cdot L=R,\$],\\
+[S\rightarrow \cdot R,\$],\\
+[R\rightarrow \cdot L,\$],\\
+[L\rightarrow \cdot *R,\{=,\$\}],\\
+[L\rightarrow \cdot id,\{=,\$\}]
 \}
-\end{aligned}
+\end{array}
 }
 $$
 
@@ -162,14 +162,14 @@ Al aplicar CLOSURE se obtiene:
 
 $$
 \boxed{
-\begin{aligned}
-I_4=\{&
+\begin{array}{l}
+I_4=\{
 [L\rightarrow *\cdot R,\{=,\$\}],\\
-&[R\rightarrow \cdot L,\{=,\$\}],\\
-&[L\rightarrow \cdot *R,\{=,\$\}],\\
-&[L\rightarrow \cdot id,\{=,\$\}]
+[R\rightarrow \cdot L,\{=,\$\}],\\
+[L\rightarrow \cdot *R,\{=,\$\}],\\
+[L\rightarrow \cdot id,\{=,\$\}]
 \}
-\end{aligned}
+\end{array}
 }
 $$
 
@@ -199,14 +199,14 @@ Aplicando CLOSURE:
 
 $$
 \boxed{
-\begin{aligned}
-I_6=\{&
+\begin{array}{l}
+I_6=\{
 [S\rightarrow L=\cdot R,\$],\\
-&[R\rightarrow \cdot L,\$],\\
-&[L\rightarrow \cdot *R,\$],\\
-&[L\rightarrow \cdot id,\$]
+[R\rightarrow \cdot L,\$],\\
+[L\rightarrow \cdot *R,\$],\\
+[L\rightarrow \cdot id,\$]
 \}
-\end{aligned}
+\end{array}
 }
 $$
 
@@ -278,14 +278,14 @@ Aplicando CLOSURE:
 
 $$
 \boxed{
-\begin{aligned}
-I_{11}=\{&
+\begin{array}{l}
+I_{11}=\{
 [L\rightarrow *\cdot R,\$],\\
-&[R\rightarrow \cdot L,\$],\\
-&[L\rightarrow \cdot *R,\$],\\
-&[L\rightarrow \cdot id,\$]
+[R\rightarrow \cdot L,\$],\\
+[L\rightarrow \cdot *R,\$],\\
+[L\rightarrow \cdot id,\$]
 \}
-\end{aligned}
+\end{array}
 }
 $$
 
@@ -392,14 +392,14 @@ Los estados fusionados principales quedan de la siguiente manera:
 
 $$
 \boxed{
-\begin{aligned}
-J_4=\{&
+\begin{array}{l}
+J_4=\{
 [L\rightarrow *\cdot R,\{=,\$\}],\\
-&[R\rightarrow \cdot L,\{=,\$\}],\\
-&[L\rightarrow \cdot *R,\{=,\$\}],\\
-&[L\rightarrow \cdot id,\{=,\$\}]
+[R\rightarrow \cdot L,\{=,\$\}],\\
+[L\rightarrow \cdot *R,\{=,\$\}],\\
+[L\rightarrow \cdot id,\{=,\$\}]
 \}
-\end{aligned}
+\end{array}
 }
 $$
 
