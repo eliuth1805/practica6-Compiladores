@@ -16,29 +16,14 @@ En este anexo se desarrolla la auditoría de una colección de estados LR(1) y s
 
 De acuerdo con el penúltimo dígito de la cuenta UNAM, que es impar, se utiliza la siguiente gramática:
 
-$$
-S'\rightarrow S
-$$
-
-$$
-S\rightarrow L=R
-$$
-
-$$
-S\rightarrow R
-$$
-
-$$
-L\rightarrow \text{\&}R
-$$
-
-$$
-L\rightarrow id
-$$
-
-$$
-R\rightarrow L
-$$
+```text
+S' → S
+S → L=R
+S → R
+L → &R
+L → id
+R → L
+```
 
 ## 2. Fase 1: Auditoría manual del caso base
 
@@ -66,9 +51,16 @@ $$
 
 Al reunir los elementos correspondientes, el estado inicial queda:
 
-$$
-I_0=\{[S'\rightarrow\cdot S,\$],\ [S\rightarrow\cdot L=R,\$],\ [S\rightarrow\cdot R,\$],\ [R\rightarrow\cdot L,\$],\ [L\rightarrow\cdot\text{\&}R,\{=,\$\}],\ [L\rightarrow\cdot id,\{=,\$\}]\}
-$$
+```text
+I0 = {
+  [S' → ·S, $],
+  [S → ·L=R, $],
+  [S → ·R, $],
+  [R → ·L, $],
+  [L → ·&R, {=,$}],
+  [L → ·id, {=,$}]
+}
+```
 
 ### 2.2. Construcción del estado I2
 
@@ -90,15 +82,15 @@ El primer elemento permite desplazar el terminal `=`, mientras que el segundo pe
 
 Calculamos:
 
-$$
-GOTO(I_0,\text{\&})=I_4
-$$
+```text
+GOTO(I0, &) = I4
+```
 
 El punto avanza en los elementos correspondientes:
 
-$$
-[L\rightarrow\text{\&}\cdot R,\{=,\$\}]
-$$
+```text
+[L → &·R, {=,$}]
+```
 
 Aplicando CLOSURE, se incorpora:
 
@@ -108,9 +100,14 @@ $$
 
 Después se expanden las producciones de L:
 
-$$
-I_4=\{[L\rightarrow\text{\&}\cdot R,\{=,\$\}],\ [R\rightarrow\cdot L,\{=,\$\}],\ [L\rightarrow\cdot\text{\&}R,\{=,\$\}],\ [L\rightarrow\cdot id,\{=,\$\}]\}
-$$
+```text
+I4 = {
+  [L → &·R, {=,$}],
+  [R → ·L, {=,$}],
+  [L → ·&R, {=,$}],
+  [L → ·id, {=,$}]
+}
+```
 
 ### 2.4. Identificación de las tres inconsistencias
 
@@ -118,9 +115,7 @@ $$
 
 El caso base utiliza la producción L → *R, aunque para esta variante debe utilizarse:
 
-$$
-L\rightarrow\text{\&}R
-$$
+`L → &R`
 
 Esto modifica la gramática que se está analizando.
 
@@ -176,9 +171,9 @@ Para esta fase se introducen dos errores deliberados sobre el autómata correcto
 
 Consideramos el estado obtenido mediante:
 
-$$
-GOTO(I_0,\text{\&})=I_4
-$$
+```text
+GOTO(I0, &) = I4
+```
 
 Durante su cerradura aparece el elemento:
 
@@ -206,9 +201,9 @@ $$
 
 Los elementos correctos son:
 
-$$
-[L\rightarrow\cdot\text{\&}R,\{=,\$\}]
-$$
+```text
+[L → ·&R, {=,$}]
+```
 
 $$
 [L\rightarrow\cdot id,\{=,\$\}]
@@ -218,9 +213,9 @@ $$
 
 Se asigna el lookahead `&` al elemento:
 
-$$
-[L\rightarrow\cdot id,\text{\&}]
-$$
+```text
+[L → ·id, &]
+```
 
 Esta asignación es incorrecta porque `&` no pertenece al resultado de FIRST(βa).
 
@@ -236,9 +231,9 @@ $$
 I_5=\{[L\rightarrow id\cdot,\{=,\$\}]\}
 $$
 
-$$
-I_7=\{[L\rightarrow\text{\&}R\cdot,\{=,\$\}]\}
-$$
+```text
+I7 = {[L → &R·, {=,$}]}
+```
 
 Se introduce deliberadamente la fusión incorrecta:
 
@@ -254,9 +249,9 @@ $$
 CORE(I_5)=\{L\rightarrow id\cdot\}
 $$
 
-$$
-CORE(I_7)=\{L\rightarrow\text{\&}R\cdot\}
-$$
+```text
+CORE(I7) = {L → &R·}
+```
 
 Como:
 
@@ -274,9 +269,9 @@ $$
 [L\rightarrow id\cdot,\{=,\$\}]
 $$
 
-$$
-[L\rightarrow\text{\&}R\cdot,\{=,\$\}]
-$$
+```text
+[L → &R·, {=,$}]
+```
 
 Para el terminal `=` aparecerían dos reducciones:
 
