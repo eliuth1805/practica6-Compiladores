@@ -29,7 +29,7 @@ S\rightarrow R
 $$
 
 $$
-L\rightarrow \&R
+L\rightarrow \text{\&}R
 $$
 
 $$
@@ -67,7 +67,7 @@ $$
 Al reunir los elementos correspondientes, el estado inicial queda:
 
 $$
-I_0=\{[S'\rightarrow\cdot S,\$],\ [S\rightarrow\cdot L=R,\$],\ [S\rightarrow\cdot R,\$],\ [R\rightarrow\cdot L,\$],\ [L\rightarrow\cdot\&R,\{=,\$\}],\ [L\rightarrow\cdot id,\{=,\$\}]\}
+I_0=\{[S'\rightarrow\cdot S,\$],\ [S\rightarrow\cdot L=R,\$],\ [S\rightarrow\cdot R,\$],\ [R\rightarrow\cdot L,\$],\ [L\rightarrow\cdot\text{\&}R,\{=,\$\}],\ [L\rightarrow\cdot id,\{=,\$\}]\}
 $$
 
 ### 2.2. Construcción del estado I2
@@ -91,13 +91,13 @@ El primer elemento permite desplazar el terminal `=`, mientras que el segundo pe
 Calculamos:
 
 $$
-GOTO(I_0,\&)=I_4
+GOTO(I_0,\text{\&})=I_4
 $$
 
 El punto avanza en los elementos correspondientes:
 
 $$
-[L\rightarrow\&\cdot R,\{=,\$\}]
+[L\rightarrow\text{\&}\cdot R,\{=,\$\}]
 $$
 
 Aplicando CLOSURE, se incorpora:
@@ -109,7 +109,7 @@ $$
 Después se expanden las producciones de L:
 
 $$
-I_4=\{[L\rightarrow\&\cdot R,\{=,\$\}],\ [R\rightarrow\cdot L,\{=,\$\}],\ [L\rightarrow\cdot\&R,\{=,\$\}],\ [L\rightarrow\cdot id,\{=,\$\}]\}
+I_4=\{[L\rightarrow\text{\&}\cdot R,\{=,\$\}],\ [R\rightarrow\cdot L,\{=,\$\}],\ [L\rightarrow\cdot\text{\&}R,\{=,\$\}],\ [L\rightarrow\cdot id,\{=,\$\}]\}
 $$
 
 ### 2.4. Identificación de las tres inconsistencias
@@ -119,7 +119,7 @@ $$
 El caso base utiliza la producción L → *R, aunque para esta variante debe utilizarse:
 
 $$
-L\rightarrow\&R
+L\rightarrow\text{\&}R
 $$
 
 Esto modifica la gramática que se está analizando.
@@ -177,7 +177,7 @@ Para esta fase se introducen dos errores deliberados sobre el autómata correcto
 Consideramos el estado obtenido mediante:
 
 $$
-GOTO(I_0,\&)=I_4
+GOTO(I_0,\text{\&})=I_4
 $$
 
 Durante su cerradura aparece el elemento:
@@ -207,7 +207,7 @@ $$
 Los elementos correctos son:
 
 $$
-[L\rightarrow\cdot\&R,\{=,\$\}]
+[L\rightarrow\cdot\text{\&}R,\{=,\$\}]
 $$
 
 $$
@@ -219,7 +219,7 @@ $$
 Se asigna el lookahead `&` al elemento:
 
 $$
-[L\rightarrow\cdot id,\&]
+[L\rightarrow\cdot id,\text{\&}]
 $$
 
 Esta asignación es incorrecta porque `&` no pertenece al resultado de FIRST(βa).
@@ -237,7 +237,7 @@ I_5=\{[L\rightarrow id\cdot,\{=,\$\}]\}
 $$
 
 $$
-I_7=\{[L\rightarrow\&R\cdot,\{=,\$\}]\}
+I_7=\{[L\rightarrow\text{\&}R\cdot,\{=,\$\}]\}
 $$
 
 Se introduce deliberadamente la fusión incorrecta:
@@ -255,7 +255,7 @@ CORE(I_5)=\{L\rightarrow id\cdot\}
 $$
 
 $$
-CORE(I_7)=\{L\rightarrow\&R\cdot\}
+CORE(I_7)=\{L\rightarrow\text{\&}R\cdot\}
 $$
 
 Como:
@@ -275,7 +275,7 @@ $$
 $$
 
 $$
-[L\rightarrow\&R\cdot,\{=,\$\}]
+[L\rightarrow\text{\&}R\cdot,\{=,\$\}]
 $$
 
 Para el terminal `=` aparecerían dos reducciones:
